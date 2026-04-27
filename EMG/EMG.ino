@@ -2,6 +2,7 @@
 #include "tensorflow/lite/micro/all_ops_resolver.h"
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/schema/schema_generated.h"
+#include "tensorflow/lite/micro/micro_error_reporter.h"
 // #include "tensorflow/lite/version.h"
 #include "emg_model.h"
 #include <AccelStepper.h>
@@ -22,7 +23,8 @@ float scaler_std[]  = {0.064822, 0.054830, 0.101812, 10.1716, 7.6505, 18.7954,
 const char* GESTURES[] = {"Fist", "Thumb Flexion", "Mid+Ring Flexion", "Extension", "Rest"};
 
 // TFLite globals
-tflite::MicroMutableOpResolver resolver;
+static tflite::MicroErrorReporter micro_error_reporter;
+tflite::MicroMutableOpResolver<5> resolver;
 const tflite::Model* model = nullptr;
 tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
@@ -76,7 +78,8 @@ void setup() {
     while (1);
   }
   static tflite::MicroInterpreter static_interpreter(model, resolver,
-                                                     tensor_arena, kTensorArenaSize);
+                                                     tensor_arena, kTensorArenaSize,
+                                                     &micro_error_reporter);
   interpreter = &static_interpreter;
   interpreter->AllocateTensors();
   input = interpreter->input(0);
