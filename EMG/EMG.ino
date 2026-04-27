@@ -1,8 +1,8 @@
-#include <TensorFlowLite.h>
+#include <TensorFlowLite_ESP32.h>
 #include "tensorflow/lite/micro/all_ops_resolver.h"
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/schema/schema_generated.h"
-#include "tensorflow/lite/version.h"
+// #include "tensorflow/lite/version.h"
 #include "emg_model.h"
 #include <AccelStepper.h>
 
