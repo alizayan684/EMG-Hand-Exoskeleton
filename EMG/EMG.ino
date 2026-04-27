@@ -22,7 +22,7 @@ float scaler_std[]  = {0.064822, 0.054830, 0.101812, 10.1716, 7.6505, 18.7954,
 const char* GESTURES[] = {"Fist", "Thumb Flexion", "Mid+Ring Flexion", "Extension", "Rest"};
 
 // TFLite globals
-tflite::MicroMutableOpResolver;
+tflite::MicroMutableOpResolver resolver;
 const tflite::Model* model = nullptr;
 tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
