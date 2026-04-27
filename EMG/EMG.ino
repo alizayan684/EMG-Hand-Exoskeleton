@@ -22,7 +22,7 @@ float scaler_std[]  = {0.064822, 0.054830, 0.101812, 10.1716, 7.6505, 18.7954,
 const char* GESTURES[] = {"Fist", "Thumb Flexion", "Mid+Ring Flexion", "Extension", "Rest"};
 
 // TFLite globals
-tflite::AllOpsResolver resolver;
+tflite::MicroMutableOpResolver;
 const tflite::Model* model = nullptr;
 tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
@@ -70,7 +70,7 @@ void setup() {
   Serial.begin(115200);
 
   // --- TFLite setup (unchanged from your code) ---
-  model = tflite::GetModel(g_emg_model_data);
+  model = tflite::GetModel(g_model);
   if (model->version() != TFLITE_SCHEMA_VERSION) {
     Serial.println("Model schema mismatch!");
     while (1);
