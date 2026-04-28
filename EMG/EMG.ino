@@ -7,10 +7,10 @@
 
 // -------------------- Motor & Control Constants --------------------
 // Motor driver pins (ULN2003)
-#define IN1 7
-#define IN2 6
-#define IN3 5
-#define IN4 4
+#define IN1 4
+#define IN2 5
+#define IN3 6
+#define IN4 7
 
 // 28BYJ-48 half‑step: 4096 steps per output‑shaft revolution
 const long  STEPS_PER_REV    = 4096;

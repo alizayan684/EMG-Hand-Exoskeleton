@@ -8,10 +8,10 @@
 #include "test_emg_data.h"
 
 // ---------- Motor & Control Constants (unchanged) ----------
-#define IN1 7
-#define IN2 6
-#define IN3 5
-#define IN4 4
+#define IN1 4
+#define IN2 5
+#define IN3 6
+#define IN4 7
 
 const long  STEPS_PER_REV    = 4096;
 const float SHAFT_RADIUS_CM  = 0.5;
