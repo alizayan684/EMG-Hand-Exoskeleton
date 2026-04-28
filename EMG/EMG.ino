@@ -1,41 +1,3 @@
-<<<<<<< HEAD
-#include <TensorFlowLite_ESP32.h>
-#include "tensorflow/lite/micro/all_ops_resolver.h"
-#include "tensorflow/lite/micro/micro_interpreter.h"
-#include "tensorflow/lite/schema/schema_generated.h"
-#include "tensorflow/lite/micro/micro_error_reporter.h"
-// #include "tensorflow/lite/version.h"
-#include "emg_model.h"
-#include <AccelStepper.h>
-
-// -------------------- EMG & Model Constants (from your code) --------------------
-const int NUM_CHANNELS = 3;
-const int WINDOW_SIZE = 200;
-const int NUM_FEATURES = 15;
-const float SESSION_MAX = 0.197055;
-
-float scaler_mean[] = {0.080339, 0.063377, 0.133859, 12.7115, 10.1651, 24.3582,
-                       0.103165, 0.080689, 0.171793, 40.3152, 54.6767, 59.0185,
-                       104.8278, 100.0354, 100.4950};
-float scaler_std[]  = {0.064822, 0.054830, 0.101812, 10.1716, 7.6505, 18.7954,
-                       0.086308, 0.070877, 0.132965, 17.8953, 23.5268, 16.4412,
-                       15.4987, 16.6755, 15.5819};
-
-const char* GESTURES[] = {"Fist", "Thumb Flexion", "Mid+Ring Flexion", "Extension", "Rest"};
-
-// TFLite globals
-static tflite::MicroErrorReporter micro_error_reporter;
-tflite::MicroMutableOpResolver<5> resolver;
-const tflite::Model* model = nullptr;
-tflite::MicroInterpreter* interpreter = nullptr;
-TfLiteTensor* input = nullptr;
-TfLiteTensor* output = nullptr;
-constexpr int kTensorArenaSize = 10 * 1024;
-uint8_t tensor_arena[kTensorArenaSize];
-
-float window_buffer[NUM_CHANNELS][WINDOW_SIZE];
-
-=======
 // ============================================================
 // ESP32‑S3 Motor Control Test – Placeholder EMG Output
 // Simulates a permanent contraction (Fist) at 50% intensity
@@ -43,13 +5,12 @@ float window_buffer[NUM_CHANNELS][WINDOW_SIZE];
 
 #include <AccelStepper.h>
 
->>>>>>> 9a0b3586369e6d08b4ec495a390c736ff189b510
 // -------------------- Motor & Control Constants --------------------
 // Motor driver pins (ULN2003)
-#define IN1  8
-#define IN2  9
-#define IN3 10
-#define IN4 11
+#define IN1 7
+#define IN2 6
+#define IN3 5
+#define IN4 4
 
 // 28BYJ-48 half‑step: 4096 steps per output‑shaft revolution
 const long  STEPS_PER_REV    = 4096;
@@ -85,26 +46,8 @@ long prev_steps = 0;
 void setup() {
   Serial.begin(115200);
 
-<<<<<<< HEAD
-  // --- TFLite setup (unchanged from your code) ---
-  model = tflite::GetModel(g_model);
-  if (model->version() != TFLITE_SCHEMA_VERSION) {
-    Serial.println("Model schema mismatch!");
-    while (1);
-  }
-  static tflite::MicroInterpreter static_interpreter(model, resolver,
-                                                     tensor_arena, kTensorArenaSize,
-                                                     &micro_error_reporter);
-  interpreter = &static_interpreter;
-  interpreter->AllocateTensors();
-  input = interpreter->input(0);
-  output = interpreter->output(0);
-
-  // --- Motor setup ---
-=======
   // --- Motor Setup ---
->>>>>>> 9a0b3586369e6d08b4ec495a390c736ff189b510
-  stepper.setMaxSpeed(2000);        // steps/s (hardware limit)
+  stepper.setMaxSpeed(4000);        // steps/s (hardware limit)
   stepper.setSpeed(0);
   stepper.setCurrentPosition(0);    // zero = 0 cm
   prev_steps = 0;
@@ -147,7 +90,7 @@ void loop() {
   float desired_velocity = Xdot_cm_s + acceleration * dt;
 
   // Clip to safe operation
-  desired_velocity = constrain(desired_velocity, -5.0, 5.0);  // cm/s
+  desired_velocity = constrain(desired_velocity, -15.0, 15.0);  // cm/s
 
   // Convert to motor steps/s and command
   float target_speed_steps = desired_velocity * STEPS_PER_CM;
