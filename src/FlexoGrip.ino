@@ -8,10 +8,10 @@
 #include "test_emg_data.h"
 
 // ---------- Motor & Control Constants ----------
-#define IN1 4
-#define IN2 5
-#define IN3 6
-#define IN4 7
+#define IN1 7
+#define IN2 6
+#define IN3 5
+#define IN4 4
 
 const long  STEPS_PER_REV    = 4096;
 const float SHAFT_RADIUS_CM  = 0.5;
@@ -20,7 +20,7 @@ const float STEPS_PER_CM     = STEPS_PER_REV / CIRCUMFERENCE; // steps/cm
 
 const float AMAX          = 1.0;
 const float ALPHA         = 1.0;
-const float MAX_CABLE_CM  = 10.0;   // full pull distance (cm)
+const float MAX_CABLE_CM  = 2.0;   // full pull distance (cm)
 
 const float Kd = 20.0;   // stiffness N/cm
 const float Bd = 10.0;   // damping  N·s/cm
@@ -182,7 +182,7 @@ void loop() {
     Serial.print(" | Raw: "); Serial.print(GESTURES[raw_gesture]);
     Serial.print(" "); Serial.print(raw_intensity * 100, 0); Serial.print("%");
     if (buffer_count >= WINDOW_SIZE) {
-      Serial.print(" | Vote: "); Serial.print(fist_votes);
+      // Serial.print(" | Vote: "); Serial.print(fist_votes);
       Serial.print("/3 -> "); Serial.print(contraction_detected ? "FIST" : "REST");
       Serial.print(" | MedInt: "); Serial.print(intensity * 100, 0); Serial.print("%");
     } else {
