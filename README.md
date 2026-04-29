@@ -1,4 +1,4 @@
-# sEMG Adaptive Rehabilitation Hand
+# FlexoGrip: sEMG Adaptive Rehabilitation Hand Exoskeleton
 An sEMG-based adaptive rehabilitation hand that combines deep learning gesture classification with intensity prediction to drive impedance-based, power-adaptive actuation.
 
 ## Highlights
@@ -7,6 +7,25 @@ An sEMG-based adaptive rehabilitation hand that combines deep learning gesture c
 - Sliding-window filtering (majority vote + median) to stabilize predictions.
 - Exportable Arduino-ready model header (`dual_model.h`) for embedded inference.
 - Test data generation and replay using fixed sEMG windows for validation.
+
+## Prototype Design
+### Design Overview and Components Used
+1. Cardboard Exoskeleton
+2. Pulley and fishing strings
+3. 28BYJ-48 Stepper motor
+4. ESP32 S3 Microcontroller
+5. ULN2003 motor driver
+6. Motor supply (5V)
+<p align="center"><img src="docs\figures\Prototype Overview.png" width="500" height="500"></p>
+
+### Exoskeleton Design
+1. Segmented structure to mimic finger joints
+2. Fishing strings mimic tendons
+3. Strings converge at the wrist mimicking hand anatomy
+<p align="center"><img src="docs\figures\Exoskeleton.png" width="500" height="500"></p>
+
+### Circuit Diagram
+<p align="center"><img src="docs\figures\Circuit Diagram.png" width="800" height="400"></p>
 
 ## System Overview
 1. **Data pipeline**: Extract 15 handcrafted features (MAV, WL, RMS, ZC, SSC across 3 channels) from 375-sample windows.
@@ -20,6 +39,17 @@ An sEMG-based adaptive rehabilitation hand that combines deep learning gesture c
 - [src/FlexoGrip.ino](src/FlexoGrip.ino): ESP32-S3 firmware with inference, filtering, and impedance control.
 - [notebook/Rehab_Final_Project_Team_4_EMG_Hand_Movement_Classifcation.ipynb](notebook/Rehab_Final_Project_Team_4_EMG_Hand_Movement_Classifcation.ipynb): Training and export workflow.
 
+## Training Results (Notebook)
+- Classifier train accuracy: 86.01%
+- Classifier test accuracy: 85.57%
+- Intensity regressor MAE: 0.0632
+
+### Confusion Matrix
+<p align="center"><img src="docs\figures\confusion matrix.png" width="700" height="500"></p>
+
+### Intensity Regressor Scatter Plot
+<p align="center"><img src="docs\figures\regressor scatter plot.png" width="700" height="500"></p>
+
 ## Quick Start (Recommended Flow)
 1. Open the notebook and run the training + export sections to generate `dual_model.h` and scaler stats.
 2. Generate test windows (or update existing test data) and place them in `EMG_Modified/test_emg_data.h`.
@@ -30,6 +60,3 @@ An sEMG-based adaptive rehabilitation hand that combines deep learning gesture c
 - **Gesture decision**: 3-window majority vote to reduce misclassification.
 - **Intensity**: 3-window median for stable intensity control.
 - **Adaptive power control**: Target displacement is computed from predicted intensity and used by the impedance controller.
-
-## Data Alignment Note
-If you reorder `test_labels`, the corresponding entries in `test_emg_data` must be reordered to keep the labels aligned with their windows.
