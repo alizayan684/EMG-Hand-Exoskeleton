@@ -13,9 +13,9 @@ An sEMG-based adaptive rehabilitation hand that combines deep learning gesture c
 1. Cardboard Exoskeleton
 2. 28BYJ-48 Stepper motor
 3. Pulley and fishing strings
-4. ESP32 S3 Microcontroller
-5. ULN2003 motor driver
-6. Motor supply (5V)
+4. ULN2003 motor driver
+5. Motor supply (5V)
+6. ESP32 S3 Microcontroller
 <p align="center"><img src="docs\figures\Prototype Overview.png" width="500" height="500"></p>
 
 ### Exoskeleton Design
