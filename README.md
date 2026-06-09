@@ -1,5 +1,5 @@
 # FlexoGrip: sEMG Adaptive Rehabilitation Hand Exoskeleton
-An sEMG-based adaptive rehabilitation hand that combines deep learning gesture classification with intensity prediction to drive impedance-based, power-adaptive actuation. This work is the implementation of the paper: FlexoGrip: ![sEMG Adaptive Rehabilitation Hand Exoskeleton](https://www.researchgate.net/publication/405419333_FlexoGrip_sEMG_Adaptive_Rehabilitation_Hand_Exoskeleton)
+An sEMG-based adaptive rehabilitation hand that combines deep learning gesture classification with intensity prediction to drive impedance-based, power-adaptive actuation. This work is the implementation of the paper: [FlexoGrip:sEMG Adaptive Rehabilitation Hand Exoskeleton](https://www.researchgate.net/publication/405419333_FlexoGrip_sEMG_Adaptive_Rehabilitation_Hand_Exoskeleton)
 
 ## Highlights
 - Deep learning classification of hand gestures plus continuous intensity prediction (0.0 to 1.0).
